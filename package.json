@@ -1,0 +1,23 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ballzakub555/BackendTakeHome_eko.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ballzakub555/BackendTakeHome_eko/issues"
+  },
+  "homepage": "https://github.com/ballzakub555/BackendTakeHome_eko#readme",
+  "dependencies": {
+    "compression": "^1.7.1",
+    "express": "^4.16.2"
+  }
+}
