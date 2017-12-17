@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ballzakub555/BackendTakeHome_eko#readme",
   "dependencies": {
     "compression": "^1.7.1",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "node-dijkstra": "^2.5.0"
   }
 }
