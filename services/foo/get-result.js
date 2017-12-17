@@ -52,6 +52,7 @@ exports.doProcess = function (req, res, lib) {
         }
 
         var haveRoute = 0;
+
         var start = arrRoute[0];
         var end = arrRoute[1];
         var queue = [];
@@ -61,7 +62,7 @@ exports.doProcess = function (req, res, lib) {
         for(var i = 0 ; i < queue.length ; i++){
             var nodeNow = queue[i];
             if(storePush.indexOf(nodeNow) == -1){
-                if(nodeNow != start && nodeNow != end){
+                if(nodeNow != start && nodeNow != end){//store new city
                     storePush.push(nodeNow);
                 }
                 
@@ -74,8 +75,26 @@ exports.doProcess = function (req, res, lib) {
                 }
             }
         }
-
         haveRoute = storePush.length;
+
+        //caseBonus
+        if(data.costless){
+            var storeExponential = 0;
+            var arrPossible = combinations(storePush.join(""));
+            for(var i = 0 ; i < arrPossible.length ; i++){
+                var routeSearch = start + "-" + arrPossible[i].split("").join("-") + "-" + end;
+                var cost = case1(routeSearch.toUpperCase());
+                if(cost != "No Such Route."){
+                    cost = parseInt(cost.replace("Cost: ", ""));
+                    if(cost <= data.costless){
+                        var division = Math.floor(data.costless / cost);
+                        storeExponential = storeExponential + (division * division);//prop
+                    }
+                }
+            }
+            haveRoute = storeExponential + 1;
+        }
+            
         if(haveRoute != 0){
             haveRoute = "Have Route: " + haveRoute;
         } else {
@@ -138,6 +157,21 @@ exports.doProcess = function (req, res, lib) {
             
         }
         return templateGraph;
+    }
+
+    function combinations(str) {
+        var fn = function(active, rest, a) {
+            if (!active && !rest)
+                return;
+            if (!rest) {
+                a.push(active);
+            } else {
+                fn(active + rest[0], rest.slice(1), a);
+                fn(active, rest.slice(1), a);
+            }
+            return a;
+        }
+        return fn("", str, []);
     }
 
 }
